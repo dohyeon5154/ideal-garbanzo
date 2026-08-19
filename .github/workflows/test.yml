@@ -1,0 +1,19 @@
+name: test                     # 워크플로의 표시 이름
+
+on:                            # 워크플로를 트리거(실행)할 이벤트 정의
+  push:
+    branches: [main]           # main 브랜치로 push 발생 시 실행
+  pull_request:
+    branches: [main]           # main 브랜치를 대상으로 한 PR 생성/갱신 시 실행
+
+jobs:
+  test:                        # 'test'라는 이름의 작업 단위 정의
+    runs-on: ubuntu-latest     # GitHub 호스팅 러너의 OS 환경 (최신 Ubuntu)
+    steps:
+      - uses: actions/checkout@v4       # 1. 러너 가상머신에 프로젝트 소스코드를 내려받음
+      - uses: actions/setup-python@v5   # 2. 지정한 버전의 파이썬 설치 및 캐시 설정
+        with:
+          python-version: "3.12"
+          cache: pip                    # pip 의존성 캐싱 활성화
+      - run: pip install -r requirements.txt  # 3. 필요 패키지 설치
+      - run: pytest -v                        # 4. 테스트 실행
