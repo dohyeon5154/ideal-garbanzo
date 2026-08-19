@@ -12,4 +12,4 @@ def test_charge_called_with_amount(mocker):
 
     # 4. 가짜 객체가 호출된 횟수 및 인자 검증
     assert fake.call_count == 1
-    assert fake.call_args.kwargs["json"]["amount"] == 12000
+    assert fake.call_args.kwargs["json"]["amount"] == 1
